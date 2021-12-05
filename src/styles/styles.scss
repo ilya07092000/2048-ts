@@ -1,0 +1,123 @@
+* {
+  box-sizing: border-box;
+}
+
+.game-container {
+  width: 600px;
+  height: 600px;
+  position: relative;
+}
+
+.tiles-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.tile {
+  transition: transform .1s linear;
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  padding: 20px;
+  display: flex;
+  &__inner {
+    animation: create .1s linear;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgb(118, 252, 56);
+    border-radius: 5px;
+  }
+
+  &.position-1-0 {
+    transform: translate(150px, 0);
+  }
+
+  &.position-2-0 {
+    transform: translate(300px, 0);
+  }
+
+  &.position-3-0 {
+    transform: translate(450px, 0);
+  }
+
+  &.position-1-1 {
+    transform: translate(150px, 150px);
+  }
+
+  &.position-2-1 {
+    transform: translate(300px, 150px);
+  }
+
+  &.position-3-1 {
+    transform: translate(450px, 150px);
+  }
+
+  &.position-2-2 {
+    transform: translate(300px, 300px);
+  }
+
+  &.position-3-3 {
+    transform: translate(450px, 450px);
+  }
+
+  &.position-3-2 {
+    transform: translate(450px, 300px);
+  }
+
+  &.position-1-3 {
+    transform: translate(150px, 450px);
+  }
+
+  &.position-0-1 {
+    transform: translate(0, 150px);
+  }
+  
+  &.position-1-2 {
+    transform: translate(150px, 300px);
+  }
+
+  &.position-0-3 {
+    transform: translate(0, 450px);
+  }
+
+  &.position-2-3 {
+    transform: translate(300px, 450px);
+  }
+
+  &.position-0-2 {
+    transform: translate(0, 300px);
+  }
+}
+
+.game-field {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: grid;
+}
+
+.row {
+  display: grid;
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
+}
+
+.cell {
+  background: #c8c781;
+  margin: 10px;
+}
+
+@keyframes create {
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
