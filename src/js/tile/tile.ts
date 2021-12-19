@@ -6,6 +6,7 @@ export interface ITile {
   updateTile(tile: ITile): void;
   updatePosition(tile: ITile): void;
   updateStyles(tile: ITile): void;
+  remove(): void;
 }
 
 class Tile implements ITile {
@@ -27,7 +28,7 @@ class Tile implements ITile {
   }
 
   remove() {
-    setTimeout(() => this.element.remove(), 100);
+    this.element.remove();
   }
 
   updateTile(tile: ITile) {
@@ -47,8 +48,9 @@ class Tile implements ITile {
   }
 
   updateValue({ value }: ITile) {
+    const innerElement = this.element.querySelector('.tile__inner');
     this.value = value;
-    this.element.querySelector('.tile__inner')!.textContent = value.toString();
+    innerElement!.textContent = value.toString();
   }
 }
 
