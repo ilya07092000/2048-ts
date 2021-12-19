@@ -5,6 +5,7 @@ export interface IGameField {
   tiles: ITile[];
   rowSize: number;
   createCells(): void;
+  renderCells(): void;
 }
 
 class GameField implements IGameField {
@@ -46,6 +47,21 @@ class GameField implements IGameField {
 
       this._cells.push(row);
     }
+  }
+
+  renderCells() {
+    this._cells.forEach((row: any) => {
+      const rowElement = document.createElement('div');
+      rowElement.classList.add('row');
+
+      row.forEach(() => {
+        const cellElement = document.createElement('div');
+        cellElement.classList.add('cell');
+        rowElement.appendChild(cellElement);
+      });
+
+      this._gameFieldDomElement.appendChild(rowElement);
+    });
   }
 }
 
