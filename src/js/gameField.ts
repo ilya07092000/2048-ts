@@ -1,6 +1,7 @@
 import { ITile } from './tile/tile';
 import Cell, { ICell } from './cell';
 import tileFactory from './tile/tileFactory';
+import randomNum from './helpers/getRandomNum';
 
 export interface IGameField {
   tiles: ITile[];
