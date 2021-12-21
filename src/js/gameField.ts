@@ -10,6 +10,7 @@ export interface IGameField {
   addInitialTiles(): void;
   createRandomTile(): ITile;
   addTileToGameField(tile: ITile): void;
+  renderTile(tile: ITile): void;
 }
 
 class GameField implements IGameField {
@@ -92,6 +93,10 @@ class GameField implements IGameField {
     this._cells[y][x].addTile();
 
     this.renderTile(tile);
+  }
+
+  renderTile(tile: ITile) {
+    this._tilesContainnerDomElement.appendChild(tile.element);
   }
 }
 
