@@ -98,6 +98,22 @@ class GameField implements IGameField {
   renderTile(tile: ITile) {
     this._tilesContainnerDomElement.appendChild(tile.element);
   }
+
+  getEmptyCells(): ICell[] {
+    const emptyCells: ICell[] = [];
+
+    for (let i = 0; i < this._rowSize; i += 1) {
+      for (let j = 0; j < this._rowSize; j += 1) {
+        const y: number = j;
+        const x: number = i;
+        const cell: ICell = this._cells[y][x];
+
+        if (!cell.hasTile) emptyCells.push(cell);
+      }
+    }
+
+    return emptyCells;
+  }
 }
 
 export default GameField;
