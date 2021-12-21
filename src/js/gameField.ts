@@ -1,5 +1,6 @@
 import { ITile } from './tile/tile';
 import Cell, { ICell } from './cell';
+import tileFactory from './tile/tileFactory';
 
 export interface IGameField {
   tiles: ITile[];
@@ -7,6 +8,7 @@ export interface IGameField {
   createCells(): void;
   renderCells(): void;
   addInitialTiles(): void;
+  createRandomTile(): ITile;
 }
 
 class GameField implements IGameField {
@@ -71,6 +73,15 @@ class GameField implements IGameField {
 
       this.addTileToGameField(tile);
     }
+  }
+
+  createRandomTile(): ITile {
+    const emptyCells: ICell[] = this.getEmptyCells();
+    const intRandomNum: number = Math.floor(randomNum(emptyCells.length));
+    const cell: ICell = emptyCells[intRandomNum];
+    const tile = tileFactory.createTile(cell.x, cell.y);
+
+    return tile;
   }
 }
 
