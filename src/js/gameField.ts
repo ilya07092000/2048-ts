@@ -9,6 +9,7 @@ export interface IGameField {
   renderCells(): void;
   addInitialTiles(): void;
   createRandomTile(): ITile;
+  addTileToGameField(tile: ITile): void;
 }
 
 class GameField implements IGameField {
@@ -82,6 +83,15 @@ class GameField implements IGameField {
     const tile = tileFactory.createTile(cell.x, cell.y);
 
     return tile;
+  }
+
+  addTileToGameField(tile: ITile) {
+    const { x, y } = tile;
+
+    this._tiles.push(tile);
+    this._cells[y][x].addTile();
+
+    this.renderTile(tile);
   }
 }
 
