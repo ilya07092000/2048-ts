@@ -6,6 +6,7 @@ export interface IGameField {
   rowSize: number;
   createCells(): void;
   renderCells(): void;
+  addInitialTiles(): void;
 }
 
 class GameField implements IGameField {
@@ -62,6 +63,14 @@ class GameField implements IGameField {
 
       this._gameFieldDomElement.appendChild(rowElement);
     });
+  }
+
+  addInitialTiles() {
+    for (let i = 0; i < this._initialTilesNumber; i += 1) {
+      const tile = this.createRandomTile();
+
+      this.addTileToGameField(tile);
+    }
   }
 }
 
