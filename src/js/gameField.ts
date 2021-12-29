@@ -12,6 +12,7 @@ export interface IGameField {
   createRandomTile(): ITile;
   addTileToGameField(tile: ITile): void;
   renderTile(tile: ITile): void;
+  renderTiles(): void;
 }
 
 class GameField implements IGameField {
@@ -98,6 +99,10 @@ class GameField implements IGameField {
 
   renderTile(tile: ITile) {
     this._tilesContainnerDomElement.appendChild(tile.element);
+  }
+
+  renderTiles() {
+    this._tiles.forEach((tile: ITile) => this.renderTile(tile));
   }
 
   getEmptyCells(): ICell[] {
