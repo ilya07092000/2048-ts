@@ -15,6 +15,8 @@ export interface IGameField {
   renderTiles(): void;
   addRandomTile(): void;
   addTileToCell(tile: ITile): void;
+  removeTileFromCell(tile: ITile): void;
+  deleteTileData(tile: ITile): void;
 }
 
 class GameField implements IGameField {
@@ -130,6 +132,14 @@ class GameField implements IGameField {
 
   addTileToCell({ x, y }: ITile) {
     this._cells[y][x].addTile();
+  }
+
+  deleteTileData(tile: ITile) {
+    this._tiles = this.tiles.filter((t) => t !== tile);
+  }
+
+  removeTileFromCell({ x, y }: ITile) {
+    this._cells[y][x].removeTile();
   }
 }
 
