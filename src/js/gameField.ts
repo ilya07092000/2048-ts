@@ -14,6 +14,7 @@ export interface IGameField {
   renderTile(tile: ITile): void;
   renderTiles(): void;
   addRandomTile(): void;
+  addTileToCell(tile: ITile): void;
 }
 
 class GameField implements IGameField {
@@ -125,6 +126,10 @@ class GameField implements IGameField {
   addRandomTile() {
     const tile: ITile = this.createRandomTile();
     this.addTileToGameField(tile);
+  }
+
+  addTileToCell({ x, y }: ITile) {
+    this._cells[y][x].addTile();
   }
 }
 
