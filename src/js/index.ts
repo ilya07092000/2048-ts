@@ -58,6 +58,14 @@ class App {
     }
   }
 
+  getTilesByDirection(direction: keyof typeof MoveDirections) {
+    if (direction === MoveDirections.LEFT || direction === MoveDirections.RIGHT) {
+      return this.getHorizontalLineTiles();
+    }
+
+    return this.getVerticalLineTiles();
+  }
+
   getHorizontalLineTiles() {
     const hrLineTiles: Record<string, ITile[]> = {};
 
