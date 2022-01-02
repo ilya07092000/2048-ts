@@ -8,7 +8,6 @@ enum MoveDirections {
   RIGHT = 'RIGHT',
 }
 
-
 class App {
   game: IGameField;
   locked: boolean;
@@ -29,12 +28,31 @@ class App {
   eventListener({ keyCode }: KeyboardEvent) {
     switch (keyCode) {
       case 37:
+        this.moveTilesAction(MoveDirections.LEFT);
         break;
       case 38:
+        this.moveTilesAction(MoveDirections.UP);
         break;
       case 39:
+        this.moveTilesAction(MoveDirections.RIGHT);
         break;
       case 40:
+        this.moveTilesAction(MoveDirections.DOWN);
+        break;
+    }
+  }
+
+  moveTilesAction(direction: keyof typeof MoveDirections) {
+    if (this.locked) return;
+
+    switch (direction) {
+      case MoveDirections.LEFT:
+        break;
+      case MoveDirections.UP:
+        break;
+      case MoveDirections.RIGHT:
+        break;
+      case MoveDirections.DOWN:
         break;
     }
   }
