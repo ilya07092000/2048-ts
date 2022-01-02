@@ -18,10 +18,24 @@ class App {
     this.moveTileTime = 300;
   }
 
+  eventListener({ keyCode }: KeyboardEvent) {
+    switch (keyCode) {
+      case 37:
+        break;
+      case 38:
+        break;
+      case 39:
+        break;
+      case 40:
+        break;
+    }
+  }
+
   init() {
     this.game.createCells();
     this.game.renderCells();
     this.game.addInitialTiles();
+    window.addEventListener('keydown', this.eventListener.bind(this));
   }
 }
 
