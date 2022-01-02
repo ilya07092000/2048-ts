@@ -1,5 +1,6 @@
 import GameField from './gameField';
 import { IGameField } from './gameField';
+import { ITile } from './tile/tile';
 
 enum MoveDirections {
   UP = 'UP',
@@ -55,6 +56,28 @@ class App {
       case MoveDirections.DOWN:
         break;
     }
+  }
+
+  getHorizontalLineTiles() {
+    const hrLineTiles: Record<string, ITile[]> = {};
+
+    for (let i = 0; i < this.game.rowSize; i += 1) {
+      const sameLineTiles = this.game.tiles.filter((tile: ITile) => tile.y === i);
+      hrLineTiles[i] = sameLineTiles;
+    }
+
+    return hrLineTiles;
+  }
+
+  getVerticalLineTiles() {
+    const vrLineTiles: Record<string, ITile[]> = {};
+
+    for (let i = 0; i < this.game.rowSize; i += 1) {
+      const sameLineTiles = this.game.tiles.filter((tile: ITile) => tile.x === i);
+      vrLineTiles[i] = sameLineTiles;
+    }
+
+    return vrLineTiles;
   }
 
   init() {
