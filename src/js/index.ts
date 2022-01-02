@@ -1,6 +1,14 @@
 import GameField from './gameField';
 import { IGameField } from './gameField';
 
+enum MoveDirections {
+  UP = 'UP',
+  DOWN = 'DOWN',
+  LEFT = 'LEFT',
+  RIGHT = 'RIGHT',
+}
+
+
 class App {
   game: IGameField;
   locked: boolean;
