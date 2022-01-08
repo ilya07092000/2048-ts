@@ -25,6 +25,19 @@ class App {
     this.scoreDomElement = document.querySelector('.score__value');
     this.moveTileTime = 300;
   }
+  
+  getSortedTilesByDirection(direction: keyof typeof MoveDirections, tiles: ITile[]) {
+    switch (direction) {
+      case MoveDirections.LEFT:
+        return tiles.sort((a, b) => a.x - b.x);
+      case MoveDirections.RIGHT:
+        return tiles.sort((a, b) => b.x - a.x);
+      case MoveDirections.UP:
+        return tiles.sort((a, b) => a.y - b.y);
+      case MoveDirections.DOWN:
+        return tiles.sort((a, b) => b.y - a.y);
+    }
+  }
 
   eventListener({ keyCode }: KeyboardEvent) {
     switch (keyCode) {
