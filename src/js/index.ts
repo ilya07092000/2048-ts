@@ -26,6 +26,8 @@ class App {
     this.moveTileTime = 300;
   }
 
+  
+
   checkMergeAbility(tileOnPos: ITile, tile: ITile, tileList: ITile[]) {
     if (tileOnPos && tileOnPos.value === tile.value) {
       const tileOnPosIndex = tileList.findIndex((t) => tileOnPos === t);
@@ -135,6 +137,10 @@ class App {
     }
 
     return vrLineTiles;
+  }
+
+  updateScore(value: number) {
+    this.score = value;
   }
 
   init() {
