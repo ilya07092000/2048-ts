@@ -25,7 +25,7 @@ class App {
     this.scoreDomElement = document.querySelector('.score__value');
     this.moveTileTime = 300;
   }
-  
+
   getSortedTilesByDirection(direction: keyof typeof MoveDirections, tiles: ITile[]) {
     switch (direction) {
       case MoveDirections.LEFT:
@@ -49,6 +49,14 @@ class App {
         return this.game.rowSize - 1;
       case MoveDirections.UP:
         return tile.y;
+    }
+  }
+
+  getTileByPosition(direction: keyof typeof MoveDirections, pos: number, tiles: ITile[]) {
+    if (direction === MoveDirections.DOWN || direction === MoveDirections.UP) {
+      return tiles.find((tile: ITile) => tile.y === pos);
+    } else {
+      return tiles.find((tile: ITile) => tile.x === pos);
     }
   }
 
