@@ -39,6 +39,19 @@ class App {
     }
   }
 
+  getTileMaxPosByDirection(direction: keyof typeof MoveDirections, tile: ITile) {
+    switch (direction) {
+      case MoveDirections.LEFT:
+        return tile.x;
+      case MoveDirections.RIGHT:
+        return this.game.rowSize - 1;
+      case MoveDirections.DOWN:
+        return this.game.rowSize - 1;
+      case MoveDirections.UP:
+        return tile.y;
+    }
+  }
+
   eventListener({ keyCode }: KeyboardEvent) {
     switch (keyCode) {
       case 37:
