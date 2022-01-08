@@ -26,6 +26,21 @@ class App {
     this.moveTileTime = 300;
   }
 
+  checkMergeAbility(tileOnPos: ITile, tile: ITile, tileList: ITile[]) {
+    if (tileOnPos && tileOnPos.value === tile.value) {
+      const tileOnPosIndex = tileList.findIndex((t) => tileOnPos === t);
+      const tileToMergeIndex = tileList.findIndex((t) => t === tile);
+
+      if (tileToMergeIndex - tileOnPosIndex === 1) {
+        return true;
+      }
+
+      return false;
+    }
+
+    return false;
+  }
+
   getSortedTilesByDirection(direction: keyof typeof MoveDirections, tiles: ITile[]) {
     switch (direction) {
       case MoveDirections.LEFT:
