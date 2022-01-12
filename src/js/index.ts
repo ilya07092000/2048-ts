@@ -109,6 +109,113 @@ class App {
     }
   }
 
+  moveTiles(tiles: Record<string, ITile[]>, direction: keyof typeof MoveDirections) {
+    const MIN_POS = 0;
+    let moved = false;
+    const lose = this.checkLose();
+
+    if (lose) {
+      console.log('lose');
+      return;
+    }
+
+    Object.keys(tiles).forEach((rowNum: string) => {
+      const tilesRow: ITile[] = [...tiles[rowNum]];
+
+      if (tilesRow.length) {
+        /**
+         * sort by coords ascend or descend due to move direction
+         */
+        let sortedTiles = this.getSortedTilesByDirection(direction, tilesRow);
+
+        sortedTiles.forEach((tile: ITile, index: number) => {
+          let MAX_POS = this.getTileMaxPosByDirection(direction, tile);
+
+          for (let i = MIN_POS; i < MAX_POS; i += 1) {
+            let suggestedPos = i;
+
+            if (direction === MoveDirections.DOWN || direction === MoveDirections.RIGHT) {
+              suggestedPos = MAX_POS - suggestedPos; // reverse position 
+            }
+
+            const currTilesArr = [...sortedTiles];
+            currTilesArr.splice(index, 1);
+
+            let tileOnPos = this.getTileByPosition(direction, suggestedPos, sortedTiles);
+
+            if (tileOnPos === tile) return;
+
+            const mergeAbility = this.checkMergeAbility(tileOnPos, tile, sortedTiles);
+
+            if (mergeAbility) {
+              let updatedTile;
+              this.locked = true;
+
+              this.game.removeTileFromCell(tile);
+
+              if (direction === MoveDirections.LEFT || direction === MoveDirections.RIGHT) {
+                updatedTile = Object.assign(tile, {
+                  x: suggestedPos,
+                });
+              } else {
+                updatedTile = Object.assign(tile, {
+                  y: suggestedPos,
+                });
+              }
+
+              moved = true;
+              tile.updateTile(updatedTile);
+              setTimeout(() => {
+                this.mergeTiles(tileOnPos, updatedTile);
+                this.locked = false;
+              }, this.moveTileTime);
+
+              break;
+            } else if (!tileOnPos) {
+              let updatedTile;
+              this.locked = true;
+
+              this.game.removeTileFromCell(tile);
+
+              if (direction === MoveDirections.LEFT || direction === MoveDirections.RIGHT) {
+                updatedTile = Object.assign(
+                  tile,
+                  {
+                    x: suggestedPos,
+                  }
+                );
+              } else {
+                updatedTile = Object.assign(
+                  tile,
+                  {
+                    y: suggestedPos,
+                  }
+                );
+              }
+
+              moved = true;
+              tile.updateTile(updatedTile);
+              this.game.addTileToCell(updatedTile);
+
+              setTimeout(() => {
+                this.locked = false;
+              }, this.moveTileTime);
+
+              break;
+            }
+          }
+        });
+      }
+    });
+
+    if (moved) {
+      setTimeout(() => {
+        this.game.addRandomTile();
+      }, this.moveTileTime);
+    }
+  }
+
+
   getTilesByDirection(direction: keyof typeof MoveDirections) {
     if (direction === MoveDirections.LEFT || direction === MoveDirections.RIGHT) {
       return this.getHorizontalLineTiles();
