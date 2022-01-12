@@ -215,6 +215,16 @@ class App {
     }
   }
 
+  checkLose() {
+    const emptyCells = this.game.getEmptyCells();
+
+    if (emptyCells.length === 0 && !this.isAnyTilesCanBeMerged()) {
+      return true;
+    }
+
+    return false;
+  }
+
 
   getTilesByDirection(direction: keyof typeof MoveDirections) {
     if (direction === MoveDirections.LEFT || direction === MoveDirections.RIGHT) {
