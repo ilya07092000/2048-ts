@@ -238,6 +238,36 @@ class App {
     return false;
   }
 
+  isAnyTilesCanBeMerged() {
+    const tylesByDirections = {
+      horizontal: this.getHorizontalLineTiles(),
+      vertial: this.getVerticalLineTiles(),
+    };
+
+    for (let [type, tiles] of Object.entries(tylesByDirections)) {
+      for (let tilesRow of Object.values(tiles)) {
+        let sortedTiles = [];
+  
+        if (type === 'horizontal') {
+          sortedTiles = this.getSortedTilesByDirection(MoveDirections.RIGHT, tilesRow);
+        } else {
+          sortedTiles = this.getSortedTilesByDirection(MoveDirections.UP, tilesRow);
+        }
+
+        for (let i = 0; i < sortedTiles.length - 1; i+= 1) {
+          const currTile = sortedTiles[i];
+          const nextTile = sortedTiles[i + 1];
+
+          if (this.checkMergeAbility(currTile, nextTile, sortedTiles)) {
+            return true;
+          }
+        }
+      }
+    }
+
+    return false;
+  }
+
   getTilesByDirection(direction: keyof typeof MoveDirections) {
     if (direction === MoveDirections.LEFT || direction === MoveDirections.RIGHT) {
       return this.getHorizontalLineTiles();
