@@ -8,6 +8,7 @@ export interface IGameField {
   rowSize: number;
   createCells(): void;
   renderCells(): void;
+  getEmptyCells(): ICell[];
   addInitialTiles(): void;
   createRandomTile(): ITile;
   addTileToGameField(tile: ITile): void;
