@@ -215,6 +215,19 @@ class App {
     }
   }
 
+  mergeTiles(to: ITile, from: ITile) {
+    const newValue = to.value * 2;
+    const newTile = Object.assign(to, {
+      value: newValue,
+    });
+
+    to.updateTile(newTile);
+    from.remove();
+    this.game.addTileToCell(to);
+    this.game.deleteTileData(from);
+    this.updateScore(this.score + newValue);
+  }
+
   checkLose() {
     const emptyCells = this.game.getEmptyCells();
 
@@ -224,7 +237,6 @@ class App {
 
     return false;
   }
-
 
   getTilesByDirection(direction: keyof typeof MoveDirections) {
     if (direction === MoveDirections.LEFT || direction === MoveDirections.RIGHT) {
