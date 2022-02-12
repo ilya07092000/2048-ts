@@ -2,7 +2,7 @@
   "homepage": "https://ilya07092000.github.io/2048-ts",
   "predeploy": "npm run build",
   "deploy": "gh-pages -d build",
-  "name": "2048",
+  "name": "2048-ts",
   "version": "1.0.0",
   "description": "homework",
   "main": "webpack.config.js",
