@@ -1,4 +1,5 @@
-import Tile, { ITile } from './tile';
+import Tile from './tile';
+import { ITile } from '../interfaces';
 
 class TileFactory {
   createTile(x: number, y: number, value = 2): ITile {

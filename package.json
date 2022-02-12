@@ -5,7 +5,7 @@
   "main": "webpack.config.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack serve --config webpack.development.js",
+    "start": "webpack serve --config webpack.development.js  --host 0.0.0.0",
     "build": "webpack --config webpack.production.js",
     "build:dev": "webpack --config webpack.development.js"
   },
@@ -31,5 +31,9 @@
     "webpack-cli": "^4.7.0",
     "webpack-dev-server": "^3.11.2",
     "webpack-merge": "^5.7.3"
+  },
+  "dependencies": {
+    "inversify": "^6.0.1",
+    "reflect-metadata": "^0.1.13"
   }
 }

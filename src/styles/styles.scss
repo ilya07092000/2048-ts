@@ -1,11 +1,43 @@
+$move-tile-time: 200ms; // im ms
+$tile-position-step: 150px;
+
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+.game {
+  padding: 40px 15px;
+  min-height: 100vh;
+  background: #ebe5b3;
+
+  &__inner {
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  &-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 50px;
+    padding: 50px 0;
+  }
 }
 
 .game-container {
   width: 600px;
   height: 600px;
   position: relative;
+  margin: 0 auto;
+  background: #938980;
+  border-radius: 6px;
 }
 
 .tiles-container {
@@ -15,80 +47,131 @@
 }
 
 .tile {
-  transition: transform .1s linear;
+  transition: transform $move-tile-time linear;
   position: absolute;
   width: 150px;
   height: 150px;
   padding: 20px;
   display: flex;
   &__inner {
-    animation: create .1s linear;
+    animation: create 0.1s linear;
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
     background: rgb(118, 252, 56);
     border-radius: 5px;
+    font-size: 36px;
+    font-weight: 700;
+    color: #3a3c26;
   }
 
   &.position-1-0 {
-    transform: translate(150px, 0);
+    transform: translate($tile-position-step, 0);
   }
 
   &.position-2-0 {
-    transform: translate(300px, 0);
+    transform: translate($tile-position-step * 2, 0);
   }
 
   &.position-3-0 {
-    transform: translate(450px, 0);
+    transform: translate($tile-position-step * 3, 0);
   }
 
   &.position-1-1 {
-    transform: translate(150px, 150px);
+    transform: translate($tile-position-step, $tile-position-step);
   }
 
   &.position-2-1 {
-    transform: translate(300px, 150px);
+    transform: translate($tile-position-step * 2, $tile-position-step);
   }
 
   &.position-3-1 {
-    transform: translate(450px, 150px);
+    transform: translate($tile-position-step * 3, $tile-position-step);
   }
 
   &.position-2-2 {
-    transform: translate(300px, 300px);
+    transform: translate($tile-position-step * 2, $tile-position-step * 2);
   }
 
   &.position-3-3 {
-    transform: translate(450px, 450px);
+    transform: translate($tile-position-step * 3, $tile-position-step * 3);
   }
 
   &.position-3-2 {
-    transform: translate(450px, 300px);
+    transform: translate($tile-position-step * 3, $tile-position-step * 2);
   }
 
   &.position-1-3 {
-    transform: translate(150px, 450px);
+    transform: translate($tile-position-step, $tile-position-step * 3);
   }
 
   &.position-0-1 {
-    transform: translate(0, 150px);
+    transform: translate(0, $tile-position-step);
   }
-  
+
   &.position-1-2 {
-    transform: translate(150px, 300px);
+    transform: translate($tile-position-step, $tile-position-step * 2);
   }
 
   &.position-0-3 {
-    transform: translate(0, 450px);
+    transform: translate(0, $tile-position-step * 3);
   }
 
   &.position-2-3 {
-    transform: translate(300px, 450px);
+    transform: translate($tile-position-step * 2, $tile-position-step * 3);
   }
 
   &.position-0-2 {
-    transform: translate(0, 300px);
+    transform: translate(0, $tile-position-step * 2);
+  }
+
+  &.tile-2 > div {
+    background: rgb(238, 218, 218);
+  }
+
+  &.tile-4 > div {
+    background: rgb(238, 218, 218);
+  }
+
+  &.tile-8 > div {
+    background: #f78e48;
+  }
+
+  &.tile-16 > div {
+    background: #fc5e2e;
+  }
+
+  &.tile-32 > div {
+    background: #ffe594;
+  }
+
+  &.tile-64 > div {
+    background: #d1affd;
+  }
+
+  &.tile-128 > div {
+    background: #ffd10e;
+  }
+
+  &.tile-256 > div {
+    background: #ff9f12;
+  }
+
+  &.tile-512 > div {
+    background: #ff6814;
+  }
+
+  &.tile-1024 > div {
+    background: #ff3210;
+  }
+
+  &.tile-2048 > div {
+    background: #ff0f2e;
+  }
+
+  &.tile-4096 > div {
+    background: #810717;
   }
 }
 
@@ -106,8 +189,106 @@
 }
 
 .cell {
-  background: #c8c781;
+  background: #bababa;
   margin: 10px;
+}
+
+.score {
+  padding: 10px 20px;
+  border-radius: 6px;
+  background: #8f8f8f;
+  text-align: center;
+  color: #fff;
+
+  &__title {
+    font-size: 20px;
+    text-transform: uppercase;
+    margin-bottom: 7px;
+  }
+
+  &__value {
+    font-size: 16px;
+  }
+}
+
+.modal-wrapper {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+
+  &._visible {
+    display: block;
+  }
+}
+
+.modal {
+  position: relative;
+  background: #fff;
+  padding: 40px 10px 10px 10px;
+  border-radius: 4px;
+  max-width: 400px;
+  width: 100%;
+  &__close {
+    cursor: pointer;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 30px;
+    height: 30px;
+    transition: transform 0.1s linear;
+  }
+
+  &__close:hover {
+    transform: scale(1.1);
+  }
+
+  &__close-line {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 25px;
+    height: 3px;
+    background: red;
+
+    &:nth-child(1) {
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+    &:nth-child(2) {
+      transform: translate(-50%, -50%) rotate(-45deg);
+    }
+  }
+
+  &__text {
+    text-align: center;
+    font-size: 20px;
+  }
+}
+
+.restart-btn {
+  position: relative;
+  padding: 10px 15px;
+  cursor: pointer;
+  background: #8f8f8f;
+  color: #fff;
+  border-radius: 10px;
+  border: none;
+  font-size: 20px;
+  text-transform: uppercase;
+  box-shadow: 2px 2px 8px 0px rgba(34, 60, 80, 0.3);
+  transition: box-shadow 0.1s linear;
+  &:hover {
+    box-shadow: none;
+  }
 }
 
 @keyframes create {
@@ -119,5 +300,158 @@
   to {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+@media (max-width: 640px) {
+  $tile-position-step: 125px;
+
+  .game-container {
+    width: 500px;
+    height: 500px;  
+  }
+
+  .tile {
+    width: 125px;
+    height: 125px;
+  
+    &.position-1-0 {
+      transform: translate($tile-position-step, 0);
+    }
+  
+    &.position-2-0 {
+      transform: translate($tile-position-step * 2, 0);
+    }
+  
+    &.position-3-0 {
+      transform: translate($tile-position-step * 3, 0);
+    }
+  
+    &.position-1-1 {
+      transform: translate($tile-position-step, $tile-position-step);
+    }
+  
+    &.position-2-1 {
+      transform: translate($tile-position-step * 2, $tile-position-step);
+    }
+  
+    &.position-3-1 {
+      transform: translate($tile-position-step * 3, $tile-position-step);
+    }
+  
+    &.position-2-2 {
+      transform: translate($tile-position-step * 2, $tile-position-step * 2);
+    }
+  
+    &.position-3-3 {
+      transform: translate($tile-position-step * 3, $tile-position-step * 3);
+    }
+  
+    &.position-3-2 {
+      transform: translate($tile-position-step * 3, $tile-position-step * 2);
+    }
+  
+    &.position-1-3 {
+      transform: translate($tile-position-step, $tile-position-step * 3);
+    }
+  
+    &.position-0-1 {
+      transform: translate(0, $tile-position-step);
+    }
+  
+    &.position-1-2 {
+      transform: translate($tile-position-step, $tile-position-step * 2);
+    }
+  
+    &.position-0-3 {
+      transform: translate(0, $tile-position-step * 3);
+    }
+  
+    &.position-2-3 {
+      transform: translate($tile-position-step * 2, $tile-position-step * 3);
+    }
+  
+    &.position-0-2 {
+      transform: translate(0, $tile-position-step * 2);
+    }
+  }
+}
+
+@media (max-width: 575px) {
+  $tile-position-step: 75px;
+
+  .game-container {
+    width: 300px;
+    height: 300px;  
+  }
+
+  .tile {
+    width: 75px;
+    height: 75px;
+    padding: 15px;
+
+    &__inner {
+      font-size: 12px;
+    }
+  
+    &.position-1-0 {
+      transform: translate($tile-position-step, 0);
+    }
+  
+    &.position-2-0 {
+      transform: translate($tile-position-step * 2, 0);
+    }
+  
+    &.position-3-0 {
+      transform: translate($tile-position-step * 3, 0);
+    }
+  
+    &.position-1-1 {
+      transform: translate($tile-position-step, $tile-position-step);
+    }
+  
+    &.position-2-1 {
+      transform: translate($tile-position-step * 2, $tile-position-step);
+    }
+  
+    &.position-3-1 {
+      transform: translate($tile-position-step * 3, $tile-position-step);
+    }
+  
+    &.position-2-2 {
+      transform: translate($tile-position-step * 2, $tile-position-step * 2);
+    }
+  
+    &.position-3-3 {
+      transform: translate($tile-position-step * 3, $tile-position-step * 3);
+    }
+  
+    &.position-3-2 {
+      transform: translate($tile-position-step * 3, $tile-position-step * 2);
+    }
+  
+    &.position-1-3 {
+      transform: translate($tile-position-step, $tile-position-step * 3);
+    }
+  
+    &.position-0-1 {
+      transform: translate(0, $tile-position-step);
+    }
+  
+    &.position-1-2 {
+      transform: translate($tile-position-step, $tile-position-step * 2);
+    }
+  
+    &.position-0-3 {
+      transform: translate(0, $tile-position-step * 3);
+    }
+  
+    &.position-2-3 {
+      transform: translate($tile-position-step * 2, $tile-position-step * 3);
+    }
+  
+    &.position-0-2 {
+      transform: translate(0, $tile-position-step * 2);
+    }
   }
 }

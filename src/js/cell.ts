@@ -1,10 +1,4 @@
-export interface ICell {
-  x: number;
-  y: number;
-  hasTile?: boolean;
-  addTile(): void;
-  removeTile(): void;
-}
+import { ICell } from "./interfaces";
 
 class Cell implements ICell {
   x: number;

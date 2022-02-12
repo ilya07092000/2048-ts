@@ -1,15 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <title>Document</title>
 </head>
+
 <body>
-  <div class="game-container">
-    <div id="game-field" class="game-field"></div>
-    <div id="tiles-container" class="tiles-container"></div>
+  <div class="game">
+    <div class="game__inner">
+      <div class="game-header">
+        <div class="score game__score">
+          <p class="score__title">score</p>
+          <p class="score__value">0</p>
+        </div>
+        <button class="restart-btn" id="restart-btn">
+          Restart
+        </button>
+      </div>
+      <div class="game-container">
+        <div id="game-field" class="game-field"></div>
+        <div id="tiles-container" class="tiles-container"></div>
+      </div>
+    </div>
+
+    <div class="modal-wrapper">
+      <div class="modal">
+        <div class="modal__close">
+          <div class="modal__close-line"></div>
+          <div class="modal__close-line"></div>
+        </div>
+        <p class="modal__text">Some Text</p>
+      </div>
+    </div>
   </div>
 </body>
+
 </html>

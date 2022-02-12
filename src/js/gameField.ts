@@ -1,33 +1,22 @@
-import { ITile } from './tile/tile';
-import Cell, { ICell } from './cell';
+import { injectable } from 'inversify';
+import Tile from './tile/tile';
+import Cell from './cell';
 import tileFactory from './tile/tileFactory';
 import randomNum from './helpers/getRandomNum';
+import { ITile } from './interfaces';
+import { IGameField, ICell } from './interfaces';
+import getRandomNum from './helpers/getRandomNum';
 
-export interface IGameField {
-  tiles: ITile[];
-  rowSize: number;
-  createCells(): void;
-  renderCells(): void;
-  getEmptyCells(): ICell[];
-  addInitialTiles(): void;
-  createRandomTile(): ITile;
-  addTileToGameField(tile: ITile): void;
-  renderTile(tile: ITile): void;
-  renderTiles(): void;
-  addRandomTile(): void;
-  addTileToCell(tile: ITile): void;
-  removeTileFromCell(tile: ITile): void;
-  deleteTileData(tile: ITile): void;
-}
-
+@injectable()
 class GameField implements IGameField {
+  public locked: boolean;
   private _rowSize: number;
   private _initialTilesNumber: number;
   private _cells: ICell[][];
   private _gameFieldDomElement: HTMLDivElement;
   private _tilesContainnerDomElement: HTMLDivElement;
   private _tiles: ITile[];
-  private _maxTilesNumber;
+  private _maxTilesNumber: number;
 
   constructor(rowSize = 4, initialTilesNumber = 2) {
     this._rowSize = rowSize;
@@ -46,6 +35,26 @@ class GameField implements IGameField {
 
   get rowSize(): number {
     return this._rowSize;
+  }
+
+  set tiles(newTiles) {
+    this._tiles = newTiles;
+  }
+
+  get tilesContainnerDomElement() {
+    return this._tilesContainnerDomElement;
+  }
+
+  addTileToCell({ x, y }: ITile) {
+    this._cells[y][x].addTile();
+  }
+
+  removeTileFromCell({ x, y }: ITile) {
+    this._cells[y][x].removeTile();
+  }
+
+  removeAllTilesFromCells() {
+    this._tiles.forEach((tile) => this.removeTileFromCell(tile));
   }
 
   createCells() {
@@ -82,6 +91,20 @@ class GameField implements IGameField {
 
       this.addTileToGameField(tile);
     }
+
+    // // TODO REMOVE
+    // for (let i = 0; i < this._initialTilesNumber; i += 1) {
+    //  for (let j = 0; j < this._initialTilesNumber; j += 1) {
+    //     const tile = tileFactory.createTile(i, j, Math.floor(getRandomNum(100)));
+
+    //     this.addTileToGameField(tile);
+    //  }
+    // }
+  }
+
+  addRandomTile() {
+    const tile: ITile = this.createRandomTile();
+    this.addTileToGameField(tile);
   }
 
   createRandomTile(): ITile {
@@ -102,12 +125,12 @@ class GameField implements IGameField {
     this.renderTile(tile);
   }
 
-  renderTile(tile: ITile) {
-    this._tilesContainnerDomElement.appendChild(tile.element);
-  }
-
   renderTiles() {
     this._tiles.forEach((tile: ITile) => this.renderTile(tile));
+  }
+
+  renderTile(tile: ITile) {
+    this._tilesContainnerDomElement.appendChild(tile.element);
   }
 
   getEmptyCells(): ICell[] {
@@ -124,23 +147,6 @@ class GameField implements IGameField {
     }
 
     return emptyCells;
-  }
-
-  addRandomTile() {
-    const tile: ITile = this.createRandomTile();
-    this.addTileToGameField(tile);
-  }
-
-  addTileToCell({ x, y }: ITile) {
-    this._cells[y][x].addTile();
-  }
-
-  deleteTileData(tile: ITile) {
-    this._tiles = this.tiles.filter((t) => t !== tile);
-  }
-
-  removeTileFromCell({ x, y }: ITile) {
-    this._cells[y][x].removeTile();
   }
 }
 

@@ -28,14 +28,14 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: 'styles/[name].css',
     }),
-    new CopyWebpackPlugin({
-      patterns: [
-        {
-          from: PATHS.src + '/img/',
-          to: 'img',
-        },
-      ],
-    }),
+    // new CopyWebpackPlugin({
+    //   patterns: [
+    //     {
+    //       from: PATHS.src + '/img/',
+    //       to: 'img',
+    //     },
+    //   ],
+    // }),
   ],
   module: {
     rules: [

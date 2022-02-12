@@ -1,30 +1,18 @@
-export interface ITile {
-  x: number;
-  y: number;
-  value: number;
-  element: HTMLDivElement;
-  updateTile(tile: ITile): void;
-  updatePosition(tile: ITile): void;
-  updateStyles(tile: ITile): void;
-  remove(): void;
-}
+import { ITile } from '../interfaces';
 
 class Tile implements ITile {
   x: number;
   y: number;
   value: number;
   element: HTMLDivElement;
+  private innerElement: HTMLDivElement;
 
-  constructor(
-    x: number,
-    y: number,
-    value: number,
-    element: HTMLDivElement,
-  ) {
+  constructor(x: number, y: number, value: number, element: HTMLDivElement) {
     this.x = x;
     this.y = y;
     this.element = element;
     this.value = value;
+    this.innerElement = this.element.querySelector('.tile__inner');
   }
 
   remove() {
@@ -37,7 +25,7 @@ class Tile implements ITile {
     this.updateValue(tile);
   }
 
-  updatePosition({x, y}: ITile) {
+  updatePosition({ x, y }: ITile) {
     this.x = x;
     this.y = y;
   }
@@ -51,6 +39,20 @@ class Tile implements ITile {
     const innerElement = this.element.querySelector('.tile__inner');
     this.value = value;
     innerElement!.textContent = value.toString();
+  }
+
+  merged() {
+    this.innerElement.animate([
+      {
+        transform: 'scale(1.3)',
+        easing: 'ease-out'
+      },
+
+      {
+        transform: ' scale(1.0)',
+        easing: 'ease-out'
+      },
+    ], 100);
   }
 }
 
