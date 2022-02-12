@@ -20,8 +20,8 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: PATHS.src + '/views/index.html',
-      filename: PATHS.dist + '/views/index.html',
+      template: PATHS.src + '/index.html',
+      filename: PATHS.dist + '/index.html',
       chunks: ['index'],
       minify: true,
     }),
