@@ -1,5 +1,8 @@
 {
-  "name": "homework-14",
+  "homepage": "https://ilya07092000.github.io/2048-ts",
+  "predeploy": "npm run build",
+  "deploy": "gh-pages -d build",
+  "name": "2048",
   "version": "1.0.0",
   "description": "homework",
   "main": "webpack.config.js",
@@ -33,6 +36,7 @@
     "webpack-merge": "^5.7.3"
   },
   "dependencies": {
+    "gh-pages": "^3.2.3",
     "inversify": "^6.0.1",
     "reflect-metadata": "^0.1.13"
   }
