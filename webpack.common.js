@@ -28,21 +28,9 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: 'styles/[name].css',
     }),
-    // new CopyWebpackPlugin({
-    //   patterns: [
-    //     {
-    //       from: PATHS.src + '/img/',
-    //       to: 'img',
-    //     },
-    //   ],
-    // }),
   ],
   module: {
     rules: [
-      // {
-      //   test: /\.pug$/i,
-      //   use: ['pug-loader'],
-      // },
       {
         test: /\.tsx?$/,
         use: 'ts-loader',
